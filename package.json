@@ -1,0 +1,15 @@
+{
+  "name": "10k-solograph",
+  "version": "1.0.0",
+  "description": "",
+  "dependencies": {
+    "gulp": "^3.9.1"
+  },
+  "devDependencies": {
+    "gulp": "gulpjs/gulp#4.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-sass": "^2.3.2"
+  },
+  "author": "",
+  "license": "MIT"
+}

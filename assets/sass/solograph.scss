@@ -1,0 +1,125 @@
+html, body {
+  height: 100%;
+}
+body {
+  -webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+  color: #000;
+  font-family: 'Helvetica', 'Arial', sans-serif;
+  font-size: 12px;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+a {
+  color: #000;
+  text-decoration: none;
+}
+
+.solograph {
+  font-size: 18px;
+
+  &__content {
+
+    .location {
+      font-size: 1.6em;
+      left: 0px;
+      position: absolute;
+      right: 0px;
+      top: 50%;
+      -moz-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+      -webkit-transform: translateY(-50%);
+      transform: translateY(-50%);
+      z-index: 2;
+
+      &__name{
+          margin: 0;
+          padding: 0.5em 0 0.25em 0;
+      }
+
+      &__time{
+        font-weight: bold;
+        margin-bottom: 0.5em;
+      }
+
+    }
+
+  }
+
+  &__footer {
+    bottom: 20px;
+    font-size: 0.7em;
+    left: 0px;
+    line-height: 120%;
+    position: absolute;
+    right: 0px;
+    text-align: center;
+
+    a {
+      color: #fff;
+    }
+
+  }
+
+}
+
+.graph {
+  left: 0%;
+  position: absolute;
+  right: 0%;
+  top: 50%;
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+
+  svg {
+    max-height: 100vh;
+    overflow: visible;
+    width: auto;
+    z-index: 1;
+  }
+
+  .flare {
+    opacity: 0;
+    transform-origin: 50%;
+    transition: all 1500ms ease-in-out;
+  }
+  .st0 {
+    width: 48px;
+    height: 80px;
+  }
+  .st1 {
+    fill: none;
+  }
+  .st2 {
+    stroke-width: 60;
+    stroke-miterlimit: 10;
+    stroke-dasharray: 1571;
+    opacity: 0.5;
+  }
+  .st10 {
+    stroke-width: 60;
+    stroke-miterlimit: 10;
+    stroke-dasharray: 1,1;
+    height: 80px;
+    width: 48px;
+  }
+  .st3 {
+    opacity: 0.3;
+  }
+}
+
+#seconds circle {
+  stroke-dashoffset: 0;
+  transition: all 500ms ease-in-out;
+}
+
+#inner, #outer {
+  transform-origin: 50%;
+  transition: all 1000ms ease-in-out;
+}
