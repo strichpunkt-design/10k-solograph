@@ -7,7 +7,10 @@ function Solograph(callback, after) {
 Solograph.prototype.initialize = function(data) {
   this.local = data.split(";");
   this.after.call(this, function(){
-      window.setTimeout(this.tick.bind(this), 1000);
+      var scope = this;
+      window.setTimeout(function() {
+        scope.tick.call(scope);
+      }, 1000);
   });
 };
 
@@ -23,7 +26,10 @@ Solograph.prototype.tick = function() {
   if(now.getSeconds() == 0){
     this.update();
   }else{
-    window.setTimeout(this.tick.bind(this), 1000);
+    var scope = this;
+    window.setTimeout(function() {
+      scope.tick.call(scope);
+    }, 1000);
   }
 };
 
@@ -33,18 +39,32 @@ Solograph.prototype.time = function() {
   return new Date(utc + (3600000* parseInt(this.local[1])));
 };
 
-Solograph.prototype.update = function(){
-    var xhr = new XMLHttpRequest();
-    var s = this;
-    xhr.open('GET', 'index.php?update=true');
-    xhr.onload = function(){
-      if(xhr.status === 200){
-        s.initialize(xhr.responseText);
-      }else{
-        s.tick();
+Solograph.prototype.update = function() {
+  if (window.XMLHttpRequest) {
+    xhr = new XMLHttpRequest();
+  } else if(window.ActiveXObject) {
+    try {
+      xhr = new ActiveXObject("Msxml2.XMLHTTP");
+    } catch (e) {
+      try {
+        xhr = new ActiveXObject("Microsoft.XMLHTTP");
+      } catch (e) {
+        xhr = false;
       }
-    };
-    xhr.send();
+    }
+  }
+  var s = this;
+  xhr.open('GET', 'index.php?update=true', true);
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState != 4) return false;
+    if (xhr.status == 200) {
+      s.initialize(xhr.responseText);
+    } else {
+      s.tick();
+    }
+  }
+  
+  xhr.send(null);
 };
 
 window.solograph = new Solograph(function(h, m, s) {
@@ -81,6 +101,7 @@ window.solograph = new Solograph(function(h, m, s) {
   document.querySelectorAll(".location__time")[0].innerHTML = this.appendLeadingZero(h, 2) + ":" + this.appendLeadingZero(m, 2) + ":" + this.appendLeadingZero(s, 2);
 }, function(tick) {
   document.querySelectorAll(".location__name")[0].innerHTML = this.local[2];
+  document.querySelectorAll(".temperature__value")[0].innerHTML = this.local[6];
   document.getElementsByTagName("body")[0].style.background = "rgb(" + this.local[3] + ")";
   document.getElementsByTagName("body")[0].style.background = "-moz-linear-gradient(45deg, rgb(" + this.local[4] + "), rgb(" + this.local[5] + "))";
   document.getElementsByTagName("body")[0].style.background = "-webkit-linear-gradient(45deg, rgb(" + this.local[4] + "), rgb(" + this.local[5] + "))";

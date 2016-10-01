@@ -16,10 +16,11 @@ try {
 
   $color = color($c, 1);
   $gradient = gradient($c, 1);
-  
+
   $city[]= join(',', $color);
   $city[]= join(',', $gradient[0]);
   $city[]= join(',', $gradient[1]);
+  $city[]= round($c);
 
   $time = new DateTime();
   $time->setTimezone(new DateTimeZone('UTC'));
@@ -40,6 +41,13 @@ try {
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
   <link rel="stylesheet" href="style.min.css" />
+  <!--[if lt IE 9]>
+  <style>
+    body {
+      color: #000;
+    }
+  </style>
+  <![endif]-->
   <style>
     body{
       background: rgb(<?php echo $color[0]; ?>, <?php echo $color[1]; ?>, <?php echo $color[2]; ?> );
@@ -63,9 +71,9 @@ try {
         </div>
       </div>
       <div class="graph">
-        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 800 800" style="enable-background:new 0 0 800 800;" xml:space="preserve">
+        <svg version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 800 800" style="enable-background:new 0 0 800 800;" xml:space="preserve">
           <defs>
-            <linearGradient id="gradient" gradientUnits="objectBoundingBox"><stop offset="0" style="stop-color: rgb(<?php echo $color[0]; ?>, <?php echo $color[1]; ?>, <?php echo $color[2]; ?>);" /><stop offset="1" style="stop-color: rgba(255, 255, 255, 0.4);" /></linearGradient>
+            <linearGradient id="gradient" gradientUnits="objectBoundingBox"><stop offset="0" style="stop-color: rgb(<?php echo $color[0]; ?>, <?php echo $color[1]; ?>, <?php echo $color[2]; ?>);"></stop><stop offset="1" style="stop-color: rgba(255, 255, 255, 0.4);"></stop></linearGradient>
             <filter id="filter_blur" x="0" y="0">
               <feGaussianBlur in="SourceGraphic" stdDeviation="2"></feGaussianBlur>
             </filter>
@@ -77,29 +85,29 @@ try {
             </clipPath>
           </defs>
           <g id="seconds">
-            <g><circle class="st2" cx="400" cy="400" r="239.4" /></g>
+            <g><circle class="st2" cx="400" cy="400" r="239.4"<?php echo ' style="fill: none; stroke:url(#gradient); stroke-dashoffset: ' . ($s * -26.183) . '"'; ?>></circle></g>
           </g>
-          <g class="flare"><circle class="st3" cx="400" cy="400" r="10" /></g>
-          <g class="flare"><circle class="st3" cx="400" cy="400" r="10" /></g>
-          <g class="flare"><circle class="st3" cx="400" cy="400" r="10" /></g>
-          <g class="flare"><circle class="st3" cx="400" cy="400" r="10" /></g>
-          <g class="flare"><circle class="st3" cx="400" cy="400" r="10" /></g>
-          <g id="outer">
+          <g class="flare"<?php echo ' style="fill: url(#gradient);"'; ?>><circle class="st3" cx="400" cy="400" r="10"<?php echo ' style="fill: url(#gradient);"'; ?>></circle></g>
+          <g class="flare"<?php echo ' style="fill: url(#gradient);"'; ?>><circle class="st3" cx="400" cy="400" r="10"<?php echo ' style="fill: url(#gradient);"'; ?>></circle></g>
+          <g class="flare"<?php echo ' style="fill: url(#gradient);"'; ?>><circle class="st3" cx="400" cy="400" r="10"<?php echo ' style="fill: url(#gradient);"'; ?>></circle></g>
+          <g class="flare"<?php echo ' style="fill: url(#gradient);"'; ?>><circle class="st3" cx="400" cy="400" r="10"<?php echo ' style="fill: url(#gradient);"'; ?>></circle></g>
+          <g class="flare"<?php echo ' style="fill: url(#gradient);"'; ?>><circle class="st3" cx="400" cy="400" r="10"<?php echo ' style="fill: url(#gradient);"'; ?>></circle></g>
+          <g id="outer"<?php echo ' style="-webkit-transform: rotate(' . ($h * 306) . 'deg); -moz-transform: rotate(' . ($mh*  30) . 'deg); -ms-transform: rotate(' . ($mh*  30) . 'deg); transform: rotate(' . ($h * 30) . 'deg);"'; ?>>
             <g>
-              <g><circle class="st0" cx="400" cy="160.1" r="150.3" /></g>
-              <g><circle class="st1" cx="400" cy="400" r="394.1" /></g>
+              <g><circle class="st0" cx="400" cy="160.1" r="150.3"<?php echo ' style="fill: url(#gradient);"'; ?>></circle></g>
+              <g><circle class="st1" cx="400" cy="400" r="394.1"></circle></g>
             </g>
           </g>
           <g id="basis">
-            <g><circle class="st10" cx="400" cy="400" r="239.4" /></g>
+            <g><circle class="st10" cx="400" cy="400" r="239.4"<?php echo ' style="fill: url(#gradient); stroke:url(#gradient);"'; ?>></circle></g>
           </g>
-          <g id="inner">
+          <g id="inner"<?php echo ' style="-webkit-transform: rotate(' . ($m *  6) . 'deg); -moz-transform: rotate(' . ($m *  6) . 'deg); -ms-transform: rotate(' . ($m *  6) . 'deg); transform: rotate(' . ($m * 6) . 'deg);"'; ?>>
             <g>
-              <g><circle class="st1" cx="400" cy="400" r="239.9" /></g>
+              <g><circle class="st1" cx="400" cy="400" r="239.9"></circle></g>
             </g>
             <g>
-              <g><g><path class="st0" d="M400,310.9c66.6,0,123-43.3,142.8-103.2c-39.9-29.6-89.3-47.1-142.8-47.1s-102.9,17.5-142.8,47.1 C277,267.6,333.4,310.9,400,310.9z" /></g></g>
-              <g><circle class="st1" cx="400" cy="400" r="394.1" /></g>
+              <g><g><path class="st0" d="M400,310.9c66.6,0,123-43.3,142.8-103.2c-39.9-29.6-89.3-47.1-142.8-47.1s-102.9,17.5-142.8,47.1 C277,267.6,333.4,310.9,400,310.9z"<?php echo ' style="fill: url(#gradient);"'; ?>></path></g></g>
+              <g><circle class="st1" cx="400" cy="400" r="394.1"></circle></g>
             </g>
           </g>
         </svg>
@@ -109,34 +117,6 @@ try {
       2016 by <a href="http://www.strichpunkt-design.de" target="_blank">Strichpunkt</a> &ndash; powered by <a href="http://www.openweathermap.org" target="_blank">OpenWeatherMap</a>
     </div>
   </div>
-  <style>
-    .flare,
-    .st0,
-    .st3,
-    .st10 {
-      fill: url(#gradient);
-    }
-    .st10 {
-      stroke:url(#gradient);
-    }
-    #seconds circle {
-      fill: none;
-      stroke:url(#gradient);
-      stroke-dashoffset: <?php echo $s * (-26.183); ?>;
-    }
-    #inner {
-      -webkit-transform: rotate(<?php echo  $m *  6 ; ?>deg);
-      -moz-transform: rotate(<?php echo  $m *  6 ; ?>deg);
-      -ms-transform: rotate(<?php echo  $m *  6 ; ?>deg);
-      transform: rotate(<?php echo  $m *  6 ; ?>deg);
-    }
-    #outer {
-      -webkit-transform: rotate(<?php echo  $h *  30 ; ?>deg);
-      -moz-transform: rotate(<?php echo  $h *  30 ; ?>deg);
-      -ms-transform: rotate(<?php echo  $h *  30 ; ?>deg);
-      transform: rotate(<?php echo  $h * 30 ; ?>deg);
-    }
-  </style>
   <script type="text/javascript" src="script.min.js"></script>
   <script type="text/javascript">window.solograph.initialize("<?php echo trim(preg_replace('/\s+/', ' ', implode(";", $city))); ?>");</script>
 </body>
