@@ -16,7 +16,7 @@ try {
 
   $color = color($c, 1);
   $gradient = gradient($c, 1);
-
+  
   $city[]= join(',', $color);
   $city[]= join(',', $gradient[0]);
   $city[]= join(',', $gradient[1]);
@@ -65,17 +65,14 @@ try {
       <div class="graph">
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 800 800" style="enable-background:new 0 0 800 800;" xml:space="preserve">
           <defs>
-            <linearGradient id="gradient" gradientUnits="objectBoundingBox">
-              <stop offset="0" style="stop-color: rgb(<?php echo $color[0]; ?>, <?php echo $color[1]; ?>, <?php echo $color[2]; ?>);" />
-              <stop offset="1" style="stop-color: rgba(255, 255, 255, 0.4);" />
-            </linearGradient>
+            <linearGradient id="gradient" gradientUnits="objectBoundingBox"><stop offset="0" style="stop-color: rgb(<?php echo $color[0]; ?>, <?php echo $color[1]; ?>, <?php echo $color[2]; ?>);" /><stop offset="1" style="stop-color: rgba(255, 255, 255, 0.4);" /></linearGradient>
             <filter id="filter_blur" x="0" y="0">
               <feGaussianBlur in="SourceGraphic" stdDeviation="2"></feGaussianBlur>
             </filter>
             <clipPath id="clip_circle">
               <circle cx="60" cy="60" r="40"></circle>
             </clipPath>
-            <clipPath id="clip_rectangular" style="transform: translateX(103.3%); -ms-transform: translateX(103.3%); -webkit-transform: translateX(103.3%);">
+            <clipPath id="clip_rectangular" style="transform: translateX(103.3%); -moz-transform: translateX(103.3%); -ms-transform: translateX(103.3%); -webkit-transform: translateX(103.3%);">
               <rect x="150" y="150" width="50" height="500"></rect>
             </clipPath>
           </defs>
@@ -128,9 +125,15 @@ try {
       stroke-dashoffset: <?php echo $s * (-26.183); ?>;
     }
     #inner {
+      -webkit-transform: rotate(<?php echo  $m *  6 ; ?>deg);
+      -moz-transform: rotate(<?php echo  $m *  6 ; ?>deg);
+      -ms-transform: rotate(<?php echo  $m *  6 ; ?>deg);
       transform: rotate(<?php echo  $m *  6 ; ?>deg);
     }
     #outer {
+      -webkit-transform: rotate(<?php echo  $h *  30 ; ?>deg);
+      -moz-transform: rotate(<?php echo  $h *  30 ; ?>deg);
+      -ms-transform: rotate(<?php echo  $h *  30 ; ?>deg);
       transform: rotate(<?php echo  $h * 30 ; ?>deg);
     }
   </style>

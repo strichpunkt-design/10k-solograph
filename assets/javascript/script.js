@@ -48,35 +48,52 @@ Solograph.prototype.update = function(){
 };
 
 window.solograph = new Solograph(function(h, m, s) {
-  var sec_bar = document.querySelectorAll("#seconds circle")[0];
-  sec_bar.style.strokeDashoffset = s * (-26.183);
+  var seconds = document.querySelectorAll("#seconds circle")[0];
+  seconds.style.strokeDashoffset = s * (-26.183);
 
   var inner = document.querySelectorAll("#inner")[0];
-  inner.style.transform = "rotate(" + (m * 6) + "deg)";
+  inner.style["-o-transform"] = "rotate(" + (m * 6) + "deg)";
+  inner.style["-moz-transform"] = "rotate(" + (m * 6) + "deg)";
+  inner.style["-ms-transform"] = "rotate(" + (m * 6) + "deg)";
+  inner.style["-webkit-transform"] = "rotate(" + (m * 6) + "deg)";
+  inner.style["transform"] = "rotate(" + (m * 6) + "deg)";
 
   var outer = document.querySelectorAll("#outer")[0];
-  outer.style.transform = "rotate(" + (h * 30) + "deg)";
+  outer.style["-o-transform"] = "rotate(" + (h * 30) + "deg)";
+  outer.style["-moz-transform"] = "rotate(" + (h * 30) + "deg)";
+  outer.style["-ms-transform"] = "rotate(" + (h * 30) + "deg)";
+  outer.style["-webkit-transform"] = "rotate(" + (h * 30) + "deg)";
+  outer.style["transform"] = "rotate(" + (h * 30) + "deg)";
 
   for (var i = 0; i < 5; i++) {
     var r = Math.floor(Math.random() * 10);
-    var z =   (300 - Math.floor(Math.random() * 600));
+    var z = (300 - Math.floor(Math.random() * 600));
     var flare = document.querySelectorAll(".flare")[i];
     if(s % 5 == i) {
-      flare.style.opacity = r / 5;
-      flare.style.transform = "scale(" + r +") translate(" + z + "%, " + z + "%)";
+      flare.style["opacity"] = (r / 5);
+      flare.style["-o-transform"] = "scale(" + r + ") translate(" + z + "%, " + z + "%)";
+      flare.style["-moz-transform"] = "scale(" + r + ") translate(" + z + "%, " + z + "%)";
+      flare.style["-ms-transform"] = "scale(" + r + ") translate(" + z + "%, " + z + "%)";
+      flare.style["-webkit-transform"] = "scale(" + r + ") translate(" + z + "%, " + z + "%)";
+      flare.style["transform"] = "scale(" + r + ") translate(" + z + "%, " + z + "%)";
     }
   }
   document.querySelectorAll(".location__time")[0].innerHTML = this.appendLeadingZero(h, 2) + ":" + this.appendLeadingZero(m, 2) + ":" + this.appendLeadingZero(s, 2);
 }, function(tick) {
   document.querySelectorAll(".location__name")[0].innerHTML = this.local[2];
-  document.getElementsByTagName("body")[0].style.background="rgb(" + this.local[4] + ")";
-  document.getElementsByTagName("body")[0].style.background="-moz-linear-gradient(45deg, rgb(" + this.local[5] + "), rgb(" + this.local[6] + "))";
-  document.getElementsByTagName("body")[0].style.background="-webkit-linear-gradient(45deg, rgb(" + this.local[5] + "), rgb(" + this.local[6] + "))";
-  document.getElementsByTagName("body")[0].style.background="linear-gradient(45deg, rgb(" + this.local[5] + "), rgb(" + this.local[6] + "))";
-  document.getElementById("gradient").children[0].style.stopColor="rgb(" + this.local[4] + ")";
+  document.getElementsByTagName("body")[0].style.background = "rgb(" + this.local[3] + ")";
+  document.getElementsByTagName("body")[0].style.background = "-moz-linear-gradient(45deg, rgb(" + this.local[4] + "), rgb(" + this.local[5] + "))";
+  document.getElementsByTagName("body")[0].style.background = "-webkit-linear-gradient(45deg, rgb(" + this.local[4] + "), rgb(" + this.local[5] + "))";
+  document.getElementsByTagName("body")[0].style.background = "linear-gradient(45deg, rgb(" + this.local[4] + "), rgb(" + this.local[5] + "))";
+  document.getElementsByTagName("stop")[0].style.stopColor = "rgb(" + this.local[3] + ")";
+
   for (var i = 0; i < 5; i++) {
     var flare = document.querySelectorAll(".flare")[i];
-    flare.style.transform = "translate(0px, 0px)";
+    flare.style["-o-transform"] = "translate(0px, 0px)";
+    flare.style["-moz-transform"] = "translate(0px, 0px)";
+    flare.style["-ms-transform"] = "translate(0px, 0px)";
+    flare.style["-webkit-transform"] = "translate(0px, 0px)";
+    flare.style["transform"] = "translate(0px, 0px)";
   }
   tick.call(this);
 });
