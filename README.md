@@ -9,3 +9,6 @@ By translating environmental data like weather, temperature and time into a visu
 unique screens from everywhere are generated in realtime.
 
 Keep exploring!
+
+
+![SOLOGRAPH screenshot](screenshot.png)
