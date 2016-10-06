@@ -5,6 +5,9 @@ function Solograph(callback, after) {
 }
 
 Solograph.prototype.initialize = function(data) {
+  document.querySelectorAll("#outer")[0].style.display = "block";
+  document.querySelectorAll("#inner")[0].style.display = "block";
+
   this.local = data.split(";");
   this.after.call(this, function(){
       var scope = this;
@@ -63,7 +66,6 @@ Solograph.prototype.update = function() {
       s.tick();
     }
   }
-  
   xhr.send(null);
 };
 
@@ -71,35 +73,50 @@ window.solograph = new Solograph(function(h, m, s) {
   var seconds = document.querySelectorAll("#seconds circle")[0];
   seconds.style.strokeDashoffset = s * (-26.183);
 
+  var ie = /*@cc_on!@*/false || !!document.documentMode;
+  var edge = !ie && !!window.StyleMedia;
   var inner = document.querySelectorAll("#inner")[0];
-  inner.style["-o-transform"] = "rotate(" + (m * 6) + "deg)";
-  inner.style["-moz-transform"] = "rotate(" + (m * 6) + "deg)";
-  inner.style["-ms-transform"] = "rotate(" + (m * 6) + "deg)";
-  inner.style["-webkit-transform"] = "rotate(" + (m * 6) + "deg)";
-  inner.style["transform"] = "rotate(" + (m * 6) + "deg)";
-
   var outer = document.querySelectorAll("#outer")[0];
-  outer.style["-o-transform"] = "rotate(" + (h * 30) + "deg)";
-  outer.style["-moz-transform"] = "rotate(" + (h * 30) + "deg)";
-  outer.style["-ms-transform"] = "rotate(" + (h * 30) + "deg)";
-  outer.style["-webkit-transform"] = "rotate(" + (h * 30) + "deg)";
-  outer.style["transform"] = "rotate(" + (h * 30) + "deg)";
+
+  if (edge || ie) {
+    inner.setAttribute("transform", "rotate(" + (m * 6) + ", 400, 400)");
+    outer.setAttribute("transform", "rotate(" + (h * 30) + ", 400, 400)");
+  } else {
+    inner.style["-o-transform"] = "rotate(" + (m * 6) + "deg)";
+    inner.style["-moz-transform"] = "rotate(" + (m * 6) + "deg)";
+    inner.style["-ms-transform"] = "rotate(" + (m * 6) + "deg)";
+    inner.style["-webkit-transform"] = "rotate(" + (m * 6) + "deg)";
+    inner.style["transform"] = "rotate(" + (m * 6) + "deg)";
+
+    outer.style["-o-transform"] = "rotate(" + (h * 30) + "deg)";
+    outer.style["-moz-transform"] = "rotate(" + (h * 30) + "deg)";
+    outer.style["-ms-transform"] = "rotate(" + (h * 30) + "deg)";
+    outer.style["-webkit-transform"] = "rotate(" + (h * 30) + "deg)";
+    outer.style["transform"] = "rotate(" + (h * 30) + "deg)";
+  }
 
   for (var i = 0; i < 5; i++) {
     var r = Math.floor(Math.random() * 10);
     var z = (300 - Math.floor(Math.random() * 600));
     var flare = document.querySelectorAll(".flare")[i];
-    if(s % 5 == i) {
+    if (s % 5 == i) {
+      if (edge || ie) {
+        flare.setAttribute("transform", "scale(" + r + ") translate(" + z + "%, " + z + "%)");
+      } else {
+        flare.style["-o-transform"] = "scale(" + r + ") translate(" + z + "%, " + z + "%)";
+        flare.style["-moz-transform"] = "scale(" + r + ") translate(" + z + "%, " + z + "%)";
+        flare.style["-ms-transform"] = "scale(" + r + ") translate(" + z + "%, " + z + "%)";
+        flare.style["-webkit-transform"] = "scale(" + r + ") translate(" + z + "%, " + z + "%)";
+        flare.style["transform"] = "scale(" + r + ") translate(" + z + "%, " + z + "%)";
+      }
       flare.style["opacity"] = (r / 5);
-      flare.style["-o-transform"] = "scale(" + r + ") translate(" + z + "%, " + z + "%)";
-      flare.style["-moz-transform"] = "scale(" + r + ") translate(" + z + "%, " + z + "%)";
-      flare.style["-ms-transform"] = "scale(" + r + ") translate(" + z + "%, " + z + "%)";
-      flare.style["-webkit-transform"] = "scale(" + r + ") translate(" + z + "%, " + z + "%)";
-      flare.style["transform"] = "scale(" + r + ") translate(" + z + "%, " + z + "%)";
     }
   }
   document.querySelectorAll(".location__time")[0].innerHTML = this.appendLeadingZero(h, 2) + ":" + this.appendLeadingZero(m, 2) + ":" + this.appendLeadingZero(s, 2);
 }, function(tick) {
+  var ie = /*@cc_on!@*/false || !!document.documentMode;
+  var edge = !ie && !!window.StyleMedia;
+
   document.querySelectorAll(".location__name")[0].innerHTML = this.local[2];
   document.querySelectorAll(".temperature__value")[0].innerHTML = this.local[6];
   document.getElementsByTagName("body")[0].style.background = "rgb(" + this.local[3] + ")";
@@ -110,11 +127,15 @@ window.solograph = new Solograph(function(h, m, s) {
 
   for (var i = 0; i < 5; i++) {
     var flare = document.querySelectorAll(".flare")[i];
-    flare.style["-o-transform"] = "translate(0px, 0px)";
-    flare.style["-moz-transform"] = "translate(0px, 0px)";
-    flare.style["-ms-transform"] = "translate(0px, 0px)";
-    flare.style["-webkit-transform"] = "translate(0px, 0px)";
-    flare.style["transform"] = "translate(0px, 0px)";
+    if (edge || ie) {
+      flare.setAttribute("transform", "translate(0, 0)");
+    } else {
+      flare.style["-o-transform"] = "translate(0px, 0px)";
+      flare.style["-moz-transform"] = "translate(0px, 0px)";
+      flare.style["-ms-transform"] = "translate(0px, 0px)";
+      flare.style["-webkit-transform"] = "translate(0px, 0px)";
+      flare.style["transform"] = "translate(0px, 0px)";
+    }
   }
   tick.call(this);
 });

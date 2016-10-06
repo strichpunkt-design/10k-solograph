@@ -56,6 +56,9 @@ try {
       background: linear-gradient(45deg, rgb(<?php echo $gradient[0][0]; ?>, <?php echo $gradient[0][1]; ?>, <?php echo $gradient[0][2]; ?>), rgb(<?php echo $gradient[1][0]; ?>, <?php echo $gradient[1][1]; ?>, <?php echo $gradient[1][2]; ?>));
       color: #fff;
     }
+    #outer, #inner{
+      display: none;
+    }
   </style>
 </head>
 <body>
@@ -92,7 +95,7 @@ try {
           <g class="flare"<?php echo ' style="fill: url(#gradient);"'; ?>><circle class="st3" cx="400" cy="400" r="10"<?php echo ' style="fill: url(#gradient);"'; ?>></circle></g>
           <g class="flare"<?php echo ' style="fill: url(#gradient);"'; ?>><circle class="st3" cx="400" cy="400" r="10"<?php echo ' style="fill: url(#gradient);"'; ?>></circle></g>
           <g class="flare"<?php echo ' style="fill: url(#gradient);"'; ?>><circle class="st3" cx="400" cy="400" r="10"<?php echo ' style="fill: url(#gradient);"'; ?>></circle></g>
-          <g id="outer"<?php echo ' style="-webkit-transform: rotate(' . ($h * 306) . 'deg); -moz-transform: rotate(' . ($mh*  30) . 'deg); -ms-transform: rotate(' . ($mh*  30) . 'deg); transform: rotate(' . ($h * 30) . 'deg);"'; ?>>
+          <g id="outer">
             <g>
               <g><circle class="st0" cx="400" cy="160.1" r="150.3"<?php echo ' style="fill: url(#gradient);"'; ?>></circle></g>
               <g><circle class="st1" cx="400" cy="400" r="394.1"></circle></g>
@@ -101,7 +104,7 @@ try {
           <g id="basis">
             <g><circle class="st10" cx="400" cy="400" r="239.4"<?php echo ' style="fill: url(#gradient); stroke:url(#gradient);"'; ?>></circle></g>
           </g>
-          <g id="inner"<?php echo ' style="-webkit-transform: rotate(' . ($m *  6) . 'deg); -moz-transform: rotate(' . ($m *  6) . 'deg); -ms-transform: rotate(' . ($m *  6) . 'deg); transform: rotate(' . ($m * 6) . 'deg);"'; ?>>
+          <g id="inner">
             <g>
               <g><circle class="st1" cx="400" cy="400" r="239.9"></circle></g>
             </g>
